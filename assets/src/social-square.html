@@ -1,0 +1,41 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600&family=JetBrains+Mono:wght@500;700&family=Montserrat:wght@800&display=swap" rel="stylesheet">
+<style>
+/* The square social card for the webhook posts: the hero on top, the mark and the one line under it.
+   Open with #diagram for the how-it-works version. Render at --window-size=1080,1080, scale 1. */
+html,body{margin:0;padding:0;background:#0d161b}
+.c{position:relative;width:1080px;height:1080px;overflow:hidden;background:#0d161b;font-family:Inter,system-ui,sans-serif;color:#f1e8cb}
+.art{position:absolute;left:0;top:0;width:1080px;height:608px;background:url(../hero.jpg) center/cover no-repeat}
+.art::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,22,27,0) 55%,#0d161b 100%)}
+.dia .art{height:486px;background:url(../how-it-works.png) center/cover no-repeat}
+.body{position:absolute;left:72px;right:72px;top:600px}
+.dia .body{top:500px}
+.mark{display:flex;align-items:center;gap:22px}
+.tile{position:relative;width:84px;height:84px;border-radius:20px;background:#f1e8cb;display:flex;align-items:center;justify-content:center}
+.tile span{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:56px;color:#0b7fc7;transform:translateY(-2px)}
+.name{font-family:Montserrat,sans-serif;font-weight:800;font-size:58px;letter-spacing:-.03em;line-height:1}
+.tag{font-family:"JetBrains Mono",monospace;font-size:15px;letter-spacing:.2em;color:#9fb0ba;margin-top:8px}
+h1{font-family:Montserrat,sans-serif;font-weight:800;font-size:60px;letter-spacing:-.025em;line-height:1.08;margin:40px 0 0}
+h1 b{color:#2f9fe3;font-weight:800}
+.dia h1{font-size:52px;margin-top:34px}
+p{font-size:28px;line-height:1.4;color:#c9d3d9;margin:26px 0 0;font-weight:500}
+.foot{position:absolute;left:72px;right:72px;bottom:56px;display:flex;justify-content:space-between;align-items:center;font-family:"JetBrains Mono",monospace;font-size:18px;letter-spacing:.14em;color:#9fb0ba}
+.foot b{color:#f1e8cb;font-weight:500}
+</style></head><body>
+<div class="c" id="c">
+  <div class="art"></div>
+  <div class="body">
+    <div class="mark"><div class="tile"><span>$</span></div><div><div class="name">Safe Keys</div><div class="tag">FREE CLAUDE CODE PLUGIN · OPEN SOURCE</div></div></div>
+    <h1 id="h">Paste an API key into Claude Code. <b>Nothing keeps it.</b></h1>
+    <p id="p">Not the chat, not the transcript on your disk, not the screen, not the model. Your tools still get to use it.</p>
+  </div>
+  <div class="foot"><span>MIT · WINDOWS · MACOS · LINUX</span><b>club.reinventing.ai/safe-keys</b></div>
+</div>
+<script>
+if (location.hash === "#diagram") {
+  document.getElementById("c").classList.add("dia");
+  document.getElementById("h").innerHTML = "You paste a key once. <b>Everything else sees a name.</b>";
+  document.getElementById("p").textContent = "The chat, the transcript, the screen and the model all see a name. Only the tool, for one command, gets the value.";
+}
+</script>
+</body></html>
