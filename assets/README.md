@@ -8,7 +8,7 @@ Everything here renders from the pages in `src/` in headless Chrome, with Montse
 | `btn-guide.png`, `btn-join.png`, `btn-sessions.png`, `btn-club.png` | The header buttons, one image each so each keeps its own link and `utm_content`. Cream primary, signal blue second, navy for the two that follow. 60 tall at display size, as wide as their own text. | `src/header-buttons.html#<name>`, `--window-size=420,60`, scale 3, then trim the transparent edges |
 | `how-it-works.png` | The one picture of the idea: a key goes in, a name comes out everywhere a person or model looks, and the real value reaches only the tool. 2400 by 1080, shown at `width="900"`. | `src/how-it-works.html`, `--window-size=1200,540`, scale 2 |
 | `hero.jpg` | 1600 by 900. A brass key dissolving into blue glyphs that form a tag. Generated with Nano Banana 2.1 at 2K, 16:9, no text in the image. | Prompt at the foot of this file |
-| `social-preview.png` | 1280 by 640, the hero centre-cropped to 2:1. Upload by hand under the repository's Social preview setting; GitHub does not read it from the tree. | PIL crop of the 2K hero |
+| `social-preview.jpg` | 1280 by 640 JPEG under 1 MB (GitHub refuses a larger file), the hero centre-cropped to 2:1. Upload by hand under the repository's Social preview setting; GitHub does not read it from the tree. | PIL crop of the 2K hero |
 
 Rebuild a page:
 
