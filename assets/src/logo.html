@@ -1,0 +1,25 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Montserrat:wght@800&display=swap" rel="stylesheet">
+<style>
+/* The README wordmark. The mark is the placeholder itself: a rounded tile
+   carrying a dollar sign, which is what a pasted key turns into. Open with
+   #dark for the cream version GitHub's dark theme gets; the default is navy
+   for the light theme. Render at --window-size=840,200, scale 2. */
+html,body{margin:0;padding:0;background:transparent}
+:root{--ink:#0d161b;--sub:#4a5a64;--blue:#0b7fc7;--tile:#f1e8cb}
+.dark{--ink:#f1e8cb;--sub:#9fb0ba;--blue:#2f9fe3;--tile:#0d161b}
+.l{width:840px;height:200px;display:flex;align-items:center;justify-content:center;gap:28px}
+.mark{position:relative;width:118px;height:118px;border-radius:28px;background:var(--ink);display:flex;align-items:center;justify-content:center}
+.mark span{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:78px;line-height:1;color:var(--blue);transform:translateY(-2px)}
+.mark i{position:absolute;right:-8px;bottom:-8px;width:34px;height:34px;border-radius:10px;background:var(--blue);border:4px solid var(--tile);box-sizing:border-box}
+.mark i::after{content:"";position:absolute;left:9px;top:5px;width:6px;height:11px;border:solid var(--tile);border-width:0 3px 3px 0;transform:rotate(45deg)}
+.w{display:flex;flex-direction:column;gap:9px}
+.name{font-family:Montserrat,system-ui,sans-serif;font-weight:800;font-size:72px;line-height:1;letter-spacing:-.03em;color:var(--ink);white-space:nowrap}
+.tag{font-family:"JetBrains Mono",monospace;font-weight:500;font-size:17px;letter-spacing:.2em;color:var(--sub);padding-left:4px}
+</style></head><body>
+<div class="l" id="l">
+<div class="mark"><span>$</span><i></i></div>
+<div class="w"><div class="name">Safe Keys</div><div class="tag">OPEN SOURCE · BY REINVENTING.AI</div></div>
+</div>
+<script>if(location.hash==="#dark")document.getElementById("l").classList.add("dark")</script>
+</body></html>

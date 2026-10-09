@@ -1,0 +1,10 @@
+{
+  "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
+  "name": "safe-keys",
+  "version": "1.0.0",
+  "description": "Keeps pasted API keys and credentials out of the conversation, the transcript, the screen and the model, while tools can still use them as $NAME",
+  "author": {
+    "name": "Mark Fulton",
+    "url": "https://www.reinventing.ai"
+  }
+}

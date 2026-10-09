@@ -1,0 +1,17 @@
+{
+  "modules": ["./safe-keys.ts"],
+  "hooks": {
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node",
+            "args": ["${CLAUDE_PLUGIN_ROOT}/scripts/scrub.mjs"],
+            "timeout": 20
+          }
+        ]
+      }
+    ]
+  }
+}

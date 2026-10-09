@@ -1,0 +1,58 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600&family=JetBrains+Mono:wght@500;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+<style>
+/* How it works, in one picture: a key goes in, a name comes out everywhere a
+   person or a model looks, and the real value reaches only the tool. Navy
+   ground so it reads the same on both GitHub themes. Render at
+   --window-size=1200,540, scale 2, shown at width 900. */
+html,body{margin:0;padding:0;background:#0d161b}
+:root{--cream:#f1e8cb;--sub:#9fb0ba;--blue:#2f9fe3;--line:rgba(241,232,203,.16);--red:#f27a6a;--green:#43c48a}
+.c{box-sizing:border-box;width:1200px;height:540px;padding:46px 56px;font-family:Inter,system-ui,sans-serif;color:var(--cream);position:relative;overflow:hidden}
+.c::before{content:"";position:absolute;inset:0;background:radial-gradient(700px 360px at 85% 0%,rgba(11,127,199,.22),transparent 70%)}
+.c>*{position:relative}
+.eyebrow{font-family:"JetBrains Mono",monospace;font-size:13px;letter-spacing:.22em;color:var(--sub);margin-bottom:10px}
+h1{font-family:Montserrat,sans-serif;font-weight:800;font-size:38px;letter-spacing:-.02em;margin:0 0 34px;line-height:1.1}
+h1 b{color:var(--blue)}
+.row{display:grid;grid-template-columns:300px 72px 1fr;align-items:stretch;gap:0}
+.card{background:rgba(241,232,203,.05);border:1px solid var(--line);border-radius:18px;padding:22px 24px}
+.card h2{font-family:Montserrat,sans-serif;font-weight:700;font-size:16px;margin:0 0 12px;letter-spacing:-.01em}
+.mono{font-family:"JetBrains Mono",monospace;font-size:14px;line-height:1.5;word-break:break-all}
+.key{color:var(--red)}
+.name{color:var(--blue);font-weight:700}
+.arrow{display:flex;align-items:center;justify-content:center;color:var(--sub);font-size:34px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.tile{background:rgba(241,232,203,.05);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.tile .l{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--sub);font-family:"JetBrains Mono",monospace;margin-bottom:8px}
+.tile .v{font-family:"JetBrains Mono",monospace;font-size:14px;line-height:1.4}
+.tile.tool{grid-column:1/-1;border-color:rgba(67,196,138,.45);background:rgba(67,196,138,.08)}
+.tile.tool .l{color:var(--green)}
+.foot{margin-top:26px;display:flex;gap:26px;font-size:14px;color:var(--sub)}
+.foot b{color:var(--cream);font-weight:600}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);margin-right:8px;transform:translateY(-1px)}
+.dot.b{background:var(--blue)}
+.dot.r{background:var(--red)}
+</style></head><body>
+<div class="c">
+  <div class="eyebrow">SAFE KEYS · HOW IT WORKS</div>
+  <h1>You paste a key once. <b>Everything else sees a name.</b></h1>
+  <div class="row">
+    <div class="card">
+      <h2>You type</h2>
+      <div class="mono">the new bright data key is <span class="key">3f9a1c2e-7b4d-4e8f-9a6b-1c2d3e4f5a6b</span>, set it please</div>
+    </div>
+    <div class="arrow">&#8594;</div>
+    <div class="grid">
+      <div class="tile"><div class="l">The chat row</div><div class="v">the new bright data key is <span class="name">$BRIGHTDATA_API_KEY</span>, set it please</div></div>
+      <div class="tile"><div class="l">What the model reads</div><div class="v">the new bright data key is <span class="name">$BRIGHTDATA_API_KEY</span>, set it please</div></div>
+      <div class="tile"><div class="l">The transcript on disk</div><div class="v">"content":"... key is <span class="name">$BRIGHTDATA_API_KEY</span>, set it ..."</div></div>
+      <div class="tile"><div class="l">The tool output, coming back</div><div class="v">BRIGHTDATA_API_KEY=<span class="name">$BRIGHTDATA_API_KEY</span></div></div>
+      <div class="tile tool"><div class="l">The tool, at the moment it runs</div><div class="v">supabase secrets set BRIGHTDATA_API_KEY=<span class="name">$BRIGHTDATA_API_KEY</span> &nbsp;<span style="color:var(--sub)">&#8594; the shell expands it to the real value</span></div></div>
+    </div>
+  </div>
+  <div class="foot">
+    <span><span class="dot r"></span><b>Red</b> never leaves memory</span>
+    <span><span class="dot b"></span><b>Blue</b> is all anyone sees</span>
+    <span><span class="dot"></span><b>Green</b> is the only place the value lands, for one command</span>
+  </div>
+</div>
+</body></html>
