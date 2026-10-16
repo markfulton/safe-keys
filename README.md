@@ -172,6 +172,8 @@ claude plugin test .
 
 Built and tested on Claude Code 2.1.299, terminal and desktop. The engine tests in `hooks/safe-keys.test.ts` run against Claude Code itself with no session and no network.
 
-## License
+## Privacy and license
+
+Safe Keys collects nothing and sends nothing anywhere; [PRIVACY.md](PRIVACY.md) says exactly what it reads, stores and sends.
 
 MIT. Built by Mark Fulton at [Reinventing.AI](https://www.reinventing.ai/?utm_source=github&utm_medium=readme&utm_campaign=safe-keys). Safe Keys is one of the free tools in the [Agent Ops Club](https://club.reinventing.ai/?utm_source=github&utm_medium=readme&utm_campaign=safe-keys&utm_content=footer), alongside the open source [AI Employees](https://github.com/markfulton/ai-employees). Shared as is, under the MIT license; it is not an Anthropic product.

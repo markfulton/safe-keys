@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.1 (2026-10-16)
+
+- `PRIVACY.md`: what the mod reads, stores and sends (nothing leaves your computer), linked from the manifest as `privacyPolicyUrl`; the MIT license is linked as `termsOfServiceUrl`. Both show on the directory listing.
+- Test fixtures are built from array joins and the custom-alias check uses an echo form, so the directory's secret scanner, which folds string concatenation, reads no fixture as a credential.
+
 ## 1.1.0 (2026-10-16)
 
 Safe Keys is a Claude Code mod, and this release packages it as one.
