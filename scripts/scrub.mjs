@@ -3,11 +3,11 @@
 //
 // The hooks keep credentials out of every row the conversation stores. Two records are not rows and
 // bypass them: the message queue's `queue-operation` entry (the prompt as it was queued) and the
-// `last-prompt` entry. Older sessions, a prompt that reached disk before the plugin existed, and a
+// `last-prompt` entry. Older sessions, a prompt that reached disk before the mod existed, and a
 // hook that failed can leave a value elsewhere too. This script finds every credential in a
 // transcript and overwrites it IN PLACE with a marker of exactly the same byte length ("[hidden]"
 // padded with *). Same-length overwrites keep the JSON valid and are safe while the engine is still
-// appending lines, so the plugin runs this right after a prompt, not only at session end.
+// appending lines, so the mod runs this right after a prompt, not only at session end.
 //
 // Modes:
 //   node scrub.mjs                          SessionEnd hook: reads {transcript_path} JSON on stdin
@@ -30,7 +30,7 @@ import os from "node:os";
 import { findSensitive, HIDDEN } from "../lib/detect.js";
 
 const MARKER = HIDDEN;
-/** Set by --prompts-only (the plugin's live pass): detection runs on prompt-like records alone; given values are overwritten everywhere. */
+/** Set by --prompts-only (the mod's live pass): detection runs on prompt-like records alone; given values are overwritten everywhere. */
 let promptsOnly = false;
 
 /** Decoded strings of a parsed record, each with a mode, walked recursively. */

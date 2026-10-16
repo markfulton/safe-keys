@@ -4,11 +4,13 @@ What the unit and engine tests cannot prove: that the hooks fire on the surface 
 
 ## Install for every session
 
+Anyone else installs it in one line at the prompt of a session, `/plugin install safe-keys --marketplace markfulton/safe-keys`, and checks it with `/plugin`, where the line under the tabs reads `1 mod active · safe-keys`. The development setup on this machine is a junction, so the repo is the live copy and edits hot reload in the next session:
+
 ```powershell
 New-Item -ItemType Junction -Path "$env:USERPROFILE\.claude\skills\safe-keys" -Target "D:\safe-keys"
 ```
 
-A junction makes the repo the live copy: edits hot-reload in the next session, git tracks everything. (`git clone` into that path works the same for anyone else.)
+Claude Code loads any plugin folder under `~/.claude/skills`, so a `git clone` into that path works the same for anyone who would rather not add a marketplace.
 
 ## 1. A pasted key
 

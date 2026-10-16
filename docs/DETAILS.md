@@ -1,6 +1,6 @@
 # Safe Keys
 
-A Claude Code plugin that keeps the API keys you paste out of the conversation, the transcript on disk, the screen and the model, while your tools can still use them.
+A Claude Code mod that keeps the API keys you paste out of the conversation, the transcript on disk, the screen and the model, while your tools can still use them.
 
 Paste a key into the chat and it is stored outside the conversation the moment it is submitted. Everywhere you and the model look, it reads as an environment-variable name: `$OPENROUTER_API_KEY`, `$BRIGHTDATA_API_KEY`, `$SAFE_KEY_1`. Bash and PowerShell commands get the name as a real environment variable, every other tool gets the value substituted at the moment it runs, and anything a tool prints back is scrubbed before the model reads it.
 
@@ -16,7 +16,7 @@ Paste a key into the chat and it is stored outside the conversation the moment i
 | The screen | Every drawn row is scrubbed on every surface (terminal, desktop app, VS Code, mobile); anything that merely looks secret in a user row shows as `[hidden]` |
 | Older sessions | `/keys scan` dry-runs every transcript on the machine; `/keys clean` overwrites in place |
 
-Real values live only in the plugin's memory for the length of the session, plus the engine process environment under the names it exported, which is what lets a hot reload of the plugin pick them up again. Nothing is written to `$.store`, `$.state` or any file.
+Real values live only in the mod's memory for the length of the session, plus the engine process environment under the names it exported, which is what lets a hot reload of the mod pick them up again. Nothing is written to `$.store`, `$.state` or any file.
 
 ## What it detects
 
@@ -29,23 +29,27 @@ Rules 3 and 4 run only on text you typed. Tool output and the model's own text g
 
 ## Install
 
-Function hooks are an early-access surface of Claude Code (2.1.286 at the time of writing). Turn them on once in `~/.claude/settings.json`:
+Safe Keys is a [mod](https://code.claude.com/docs/en/plugins/mods/overview): a plugin whose hooks module runs inside Claude Code. Mods are on by default from Claude Code 2.1.287 in the terminal and 2.1.286 in the desktop app; if `CLAUDE_CODE_ENABLE_FUNCTION_HOOKS` is still in your settings from the early access period, remove it, the setting is ignored.
 
-```json
-{ "env": { "CLAUDE_CODE_ENABLE_FUNCTION_HOOKS": "1" } }
+The install is one line at the prompt of a session (the repository carries its own `.claude-plugin/marketplace.json`):
+
+```text
+/plugin install safe-keys --marketplace markfulton/safe-keys
 ```
 
-Then put the plugin where Claude Code loads skills-folder plugins from. Any of these works:
+Answer `y` to add the marketplace, then choose the user scope. From a shell, `claude plugin install safe-keys --marketplace markfulton/safe-keys` does the same, and `claude plugin update safe-keys@safe-keys` fetches a later release. In the desktop app: the **+** button next to the prompt box, **Plugins**, **Add marketplace** with `markfulton/safe-keys`, then **Add plugin**.
 
-```bash
-git clone https://github.com/reinventingai/safe-keys ~/.claude/skills/safe-keys
-```
+Two other ways to load it:
 
 ```bash
 claude --plugin-dir /path/to/safe-keys
 ```
 
-For a session the desktop app starts, name the folder in `CLAUDE_CODE_PLUGIN_DIRS` inside the same `env` block.
+```bash
+git clone https://github.com/markfulton/safe-keys ~/.claude/skills/safe-keys
+```
+
+The first loads a clone for one session and hot reloads it when a file changes, which is how the mod is developed. The second puts the folder where Claude Code loads skills-folder plugins from, so it loads in every session with no marketplace; a session the desktop app starts can also name the folder in `CLAUDE_CODE_PLUGIN_DIRS` in the `env` block of `~/.claude/settings.json`.
 
 Check it before the first session:
 
@@ -53,7 +57,7 @@ Check it before the first session:
 claude plugin validate /path/to/safe-keys
 ```
 
-`node` on the PATH is needed for the on-disk pass; without it the in-memory layers still run and the plugin says so in its log.
+The `hooks:`, `calls:` and `env writes:` lines are what the mod does on your machine, and the README explains each. `node` on the PATH is needed for the on-disk pass; without it the in-memory layers still run and the mod says so in its log.
 
 ## Use
 
@@ -81,7 +85,7 @@ claude plugin validate .
 claude plugin test .
 ```
 
-The unit tests cover every rule and every exclusion with synthetic values. The engine tests run the plugin's hooks against Claude Code itself on the terminal and desktop surfaces: a pasted key reaching the bottom as a name, a stored row with no value in it, a shell command resolved both ways, a tool result scrubbed with a new key stored, and a drawn row with nothing to see.
+The unit tests cover every rule and every exclusion with synthetic values. The engine tests run the mod's hooks against Claude Code itself on the terminal and desktop surfaces: a pasted key reaching the bottom as a name, a stored row with no value in it, a shell command resolved both ways, a tool result scrubbed with a new key stored, and a drawn row with nothing to see.
 
 ## Limits, stated plainly
 
@@ -89,7 +93,7 @@ The unit tests cover every rule and every exclusion with synthetic values. The e
 - A heredoc with a quoted delimiter (`<<'EOF'`) does not expand variables; write `$NAME` in double quotes or outside the heredoc.
 - The permission classifier in auto mode sees the arguments of non-shell tools after substitution. Shell commands are the safe path; that is why names, not values, go into them.
 - Detection is heuristic. A low-entropy custom secret with no label and no credential word near it is not caught. Use the inbox for those.
-- Function hooks are early access and the contract may change between Claude Code releases. `claude plugin validate` tells you before a session does.
+- The mods API can change between Claude Code releases. `claude plugin validate` tells you before a session does, and the diag log says what a build could not do.
 
 ## License
 

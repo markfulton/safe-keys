@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.1.0 (2026-10-16)
+
+Safe Keys is a Claude Code mod, and this release packages it as one.
+
+- Install from the repository in one line: `/plugin install safe-keys --marketplace markfulton/safe-keys`. The repository now carries `.claude-plugin/marketplace.json`, so `claude plugin install` and the desktop app's plugin browser both find it, and `claude plugin update safe-keys@safe-keys` brings later releases.
+- The manifest carries the display name, homepage, repository, license, keywords, icon and support link that marketplaces and Anthropic's directory read.
+- `/keys` is registered in every install. `/safe-keys` is registered too where that name is free (a marketplace install), so the command no longer depends on how the mod was loaded.
+- The `CLAUDE_CODE_ENABLE_FUNCTION_HOOKS` step is gone from every document: mods are on by default from Claude Code 2.1.287 (the desktop app from 2.1.286) and the setting is ignored.
+- README, SKILL.md and the docs say "mod" where they said "plugin", list what the mod does on your machine before you install it (what `claude plugin validate` reports), and say where it runs.
+- Tested on Claude Code 2.1.299: 32 unit checks, 5 engine tests.
+
 ## 1.0.0 (2026-10-09)
 
 First release under the Safe Keys name. Successor to the private `transcript-redactor` plugin (0.1.0 live, 0.2.0 staged and never loadable).

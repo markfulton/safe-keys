@@ -1,5 +1,6 @@
-// Safe Keys: a Claude Code function-hook plugin that keeps pasted credentials out of the
-// conversation, the transcript file, the screen and the model, while tools can still use them.
+// Safe Keys: a Claude Code mod (a plugin whose hooks module runs inside Claude Code) that keeps
+// pasted credentials out of the conversation, the transcript file, the screen and the model, while
+// tools can still use them.
 //
 // Layers, each independent of the others:
 //   1. prompt.edit      a key pasted into the prompt box is replaced before it is queued or drawn
@@ -514,18 +515,19 @@ export const register: Register = (on) => {
     await learnSession($);
     const imported = await importEnv($);
     diag($, "session.start: home " + (home ? "ok" : "unknown") + ", plugin root " + (pluginRoot ? "ok" : "unknown") + ", transcript " + (resolveTranscript() ? "resolvable" : "unresolved") + (imported ? ", re-imported " + imported + " name(s) after a reload" : ""));
+    // /keys is the documented command and is registered in every install. /safe-keys is registered too
+    // where the name is free: when the mod is loaded from the skills folder the root SKILL.md owns it.
+    try {
+      await $.command.register({ name: "keys", description: "Safe Keys: stored names, transcript scan, cleanup", argumentHint: "[status|scan|clean|forget]" });
+      diag($, "command: /keys registered");
+    } catch (err) {
+      diag($, "command.register /keys refused (" + String((err as Error)?.message ?? err).slice(0, 120) + ")");
+    }
     try {
       await $.command.register({ name: "safe-keys", description: "Safe Keys: stored names, transcript scan, cleanup", argumentHint: "[status|scan|clean|forget]" });
       diag($, "command: /safe-keys registered");
     } catch (err) {
-      // The folder's SKILL.md already owns /safe-keys as a skill command on some builds; take a second name.
-      diag($, "command.register /safe-keys refused (" + String((err as Error)?.message ?? err).slice(0, 120) + "); trying /keys");
-      try {
-        await $.command.register({ name: "keys", description: "Safe Keys: stored names, transcript scan, cleanup", argumentHint: "[status|scan|clean|forget]" });
-        diag($, "command: /keys registered");
-      } catch (err2) {
-        diag($, "command.register /keys refused (" + String((err2 as Error)?.message ?? err2).slice(0, 120) + ")");
-      }
+      diag($, "command.register /safe-keys refused (" + String((err as Error)?.message ?? err).slice(0, 120) + "); /keys stands");
     }
     try {
       $.ui.log(PLUGIN + ": on. A pasted key is stored and shown as a name such as $OPENROUTER_API_KEY; the value never enters the transcript. /keys for status.");

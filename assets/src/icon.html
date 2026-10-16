@@ -1,0 +1,17 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+<style>
+/* The listing icon: the mark from the wordmark on its own, a navy tile carrying
+   a dollar sign with the blue check badge. Square, for the plugin directory and
+   the Claude Code plugin browser. Render at --window-size=256,256, scale 2, for
+   a 512 by 512 PNG with a transparent ground. */
+html,body{margin:0;padding:0;background:transparent}
+:root{--ink:#0d161b;--blue:#0b7fc7;--tile:#f1e8cb}
+.l{width:256px;height:256px;display:flex;align-items:center;justify-content:center}
+.mark{position:relative;width:224px;height:224px;border-radius:54px;background:var(--ink);display:flex;align-items:center;justify-content:center}
+.mark span{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:150px;line-height:1;color:var(--blue);transform:translateY(-4px)}
+.mark i{position:absolute;right:-12px;bottom:-12px;width:66px;height:66px;border-radius:20px;background:var(--blue);border:8px solid var(--tile);box-sizing:border-box}
+.mark i::after{content:"";position:absolute;left:17px;top:9px;width:12px;height:22px;border:solid var(--tile);border-width:0 6px 6px 0;transform:rotate(45deg)}
+</style></head><body>
+<div class="l"><div class="mark"><span>$</span><i></i></div></div>
+</body></html>

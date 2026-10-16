@@ -1,10 +1,28 @@
 {
   "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
   "name": "safe-keys",
-  "version": "1.0.0",
-  "description": "Keeps pasted API keys and credentials out of the conversation, the transcript, the screen and the model, while tools can still use them as $NAME",
+  "displayName": "Safe Keys",
+  "version": "1.1.0",
+  "description": "A Claude Code mod. Paste an API key into the chat and it becomes a name everywhere: the transcript on disk, the screen, the model. Your tools still use it as $NAME.",
   "author": {
     "name": "Mark Fulton",
     "url": "https://www.reinventing.ai"
-  }
+  },
+  "homepage": "https://club.reinventing.ai/safe-keys",
+  "repository": "https://github.com/markfulton/safe-keys",
+  "license": "MIT",
+  "keywords": [
+    "mod",
+    "claude-code-mod",
+    "secrets",
+    "api-keys",
+    "credentials",
+    "redaction",
+    "transcript",
+    "privacy",
+    "security"
+  ],
+  "icon": "./assets/icon.png",
+  "documentationUrl": "https://club.reinventing.ai/safe-keys",
+  "supportUrl": "https://github.com/markfulton/safe-keys/issues"
 }

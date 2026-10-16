@@ -1,0 +1,25 @@
+{
+  "name": "safe-keys",
+  "owner": {
+    "name": "Mark Fulton",
+    "url": "https://github.com/markfulton"
+  },
+  "metadata": {
+    "description": "Safe Keys, a Claude Code mod that keeps the API keys you paste out of the conversation, the transcript, the screen and the model while your tools still use them."
+  },
+  "plugins": [
+    {
+      "name": "safe-keys",
+      "source": "./",
+      "description": "Paste an API key into Claude Code and it becomes a name everywhere: the transcript on disk, the screen, the model. Bash and PowerShell get it as a real environment variable, other tools get the value at the moment they run, and anything a tool prints back is cleaned before the model reads it.",
+      "author": {
+        "name": "Mark Fulton"
+      },
+      "homepage": "https://club.reinventing.ai/safe-keys",
+      "repository": "https://github.com/markfulton/safe-keys",
+      "license": "MIT",
+      "category": "security",
+      "tags": ["mod", "secrets", "api-keys", "credentials", "redaction", "privacy"]
+    }
+  ]
+}

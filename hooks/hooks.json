@@ -1,4 +1,5 @@
 {
+  "description": "The Safe Keys hooks module, plus one settings hook that scrubs the transcript on disk when the session ends",
   "modules": ["./safe-keys.ts"],
   "hooks": {
     "SessionEnd": [
