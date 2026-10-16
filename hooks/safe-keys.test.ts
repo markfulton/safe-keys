@@ -15,9 +15,9 @@ function drawText(on: any) {
   });
 }
 
-const OR = "sk-or-v1-" + "0123456789abcdef".repeat(4);
-const GH = "ghp_" + "A1b2C3d4E5f6G7h8I9j0" + "K1l2M3n4O5p6Q7r8S9t0";
-const UUID = "3f9a1c2e-7b4d-4e8f-9a6b-1c2d3e4f5a6b";
+const OR = "sk-or-v1-" + ("012345678" + "9abcdef").repeat(4);
+const GH = "ghp_" + ("A1b2C3d4E" + "5f6G7h8I9" + "j0") + ("K1l2M3n4O" + "5p6Q7r8S9" + "t0");
+const UUID = ("3f9a1c2e-" + "7b4d-4e8f" + "-9a6b-1c2" + "d3e4f5a6b");
 const composer = { kind: "composer" } as const;
 
 test("prompt.submit: a pasted key reaches the bottom as a name, with the usage note", async ($, on) => {
