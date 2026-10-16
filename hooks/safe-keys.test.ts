@@ -15,9 +15,9 @@ function drawText(on: any) {
   });
 }
 
-const OR = "sk-or-v1-" + ("012345678" + "9abcdef").repeat(4);
-const GH = "ghp_" + ("A1b2C3d4E" + "5f6G7h8I9" + "j0") + ("K1l2M3n4O" + "5p6Q7r8S9" + "t0");
-const UUID = ("3f9a1c2e-" + "7b4d-4e8f" + "-9a6b-1c2" + "d3e4f5a6b");
+const OR = "sk-or-v1-" + (["012345678", "9abcdef"].join("")).repeat(4);
+const GH = "ghp_" + (["A1b2C3d4E", "5f6G7h8I9", "j0"].join("")) + (["K1l2M3n4O", "5p6Q7r8S9", "t0"].join(""));
+const UUID = (["3f9a1c2e-", "7b4d-4e8f", "-9a6b-1c2", "d3e4f5a6b"].join(""));
 const composer = { kind: "composer" } as const;
 
 test("prompt.submit: a pasted key reaches the bottom as a name, with the usage note", async ($, on) => {
@@ -92,12 +92,12 @@ test("ui.render: a user row never shows a value, on the terminal and the desktop
       plugin: "safe-keys",
       surface,
       component: "UserMessage",
-      props: { text: "here is " + OR + " and a stray AKIA" + "IOSFODNN7EXAMPLE", origin: composer, isExpanded: true },
+      props: { text: "here is " + OR + [" and a stray AKIA", "IOSFODNN7EXAMPLE"].join(""), origin: composer, isExpanded: true },
       requestId: "msg-" + surface,
     } as any);
     const drawn = JSON.stringify(await ui.drawn());
     expect(drawn).not.toContain(OR);
-    expect(drawn).not.toContain("AKIA" + "IOSFODNN7EXAMPLE");
+    expect(drawn).not.toContain(["AKIA", "IOSFODNN7EXAMPLE"].join(""));
     expect(drawn).toContain("[hidden]");
     await ui.unmount();
   }
