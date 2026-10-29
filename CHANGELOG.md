@@ -5,7 +5,8 @@
 - A base64 secret is stored whole. A Resend webhook signing secret (`whsec_` plus base64) with a `+` in it was cut at the `+`: only the tail was stored and the head stayed in the transcript. `whsec_` now takes the full base64 alphabet and its padding, and a bare base64 run in something you typed is kept as one value, `+`, `/` and trailing `=` included. File paths and `this+that` lists stay untouched.
 - A `whsec_` secret is named after the vendor named before it (`$RESEND_WEBHOOK_SECRET`), `$STRIPE_WEBHOOK_SECRET` when it is letters and digits only, and `STRIPE_WEBHOOK_SECRET` otherwise, so a Resend secret no longer takes over the Stripe variable.
 - An environment-variable name in a value position (`cond ? "WEBHOOK_SECRET" : "STRIPE_WEBHOOK_SECRET"` in code a tool printed) is no longer stored as a credential.
-- Tests: 38 unit checks, 6 engine tests.
+- An empty assignment (`RESEND_API_KEY=` in a `.env.example`) no longer takes the next line as its value. The label, bearer and flag rules stop at the end of the line, so a `cat` or `sed` of an example file comes back unchanged and no bogus name shadows the real variable in a shell.
+- Tests: 39 unit checks, 6 engine tests.
 
 ## 1.1.1 (2026-10-16)
 
