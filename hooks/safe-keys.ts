@@ -691,8 +691,27 @@ export const register: Register = (on) => {
 
   // /safe-keys status | scan | clean | forget
   on("command.run", { command: ["safe-keys", "keys"] }, async ($, e: any) => {
-    const arg = String(e?.args ?? "").trim().toLowerCase();
+    const raw = String(e?.args ?? "").trim();
+    const arg = raw.toLowerCase();
     await learnSession($);
+    // `/keys forget $NAME`: drop one stale entry (a value that turned out not to be a secret) and keep the rest.
+    const one = raw.match(/^forget\s+(\$?\{?[A-Za-z_][A-Za-z0-9_]*\}?)$/i);
+    if (one) {
+      const name = one[1].replace(/^\$\{?|\}$/g, "");
+      const envName = vault.envNameFor(name);
+      const exported = vault.isExported(name);
+      if (!vault.forgetName(name)) return { text: "Safe Keys: $" + name + " is not stored this session. Stored: " + (vault.placeholders().join(", ") || "nothing") + "." };
+      let unset = false;
+      if (exported && ENV_NAMES.includes(envName)) {
+        try {
+          unset = await envSet($, envName, undefined as unknown as string);
+        } catch {
+          unset = false;
+        }
+      }
+      diag($, "command: forgot $" + name + (unset ? ", unset " + envName : ""));
+      return { text: "Safe Keys: forgot $" + name + (unset ? " and unset " + envName : "") + ". Its text shows as itself again from now on." };
+    }
     if (arg === "forget") {
       const n = vault.size;
       let marker: string | undefined;
@@ -727,7 +746,7 @@ export const register: Register = (on) => {
       "Transcript: " + (resolveTranscript() ?? "unknown"),
       "Diag log: " + (home ? home + "/.claude/" + DIAG : "unknown"),
       "Inbox: drop a key in " + (home ? home + "/.claude/" + INBOX : "~/.claude/" + INBOX) + " to store it without pasting.",
-      "Commands: /safe-keys scan (dry run over every transcript), /safe-keys clean (overwrite in place), /safe-keys forget.",
+      "Commands: /safe-keys scan (dry run over every transcript), /safe-keys clean (overwrite in place), /safe-keys forget $NAME (drop one), /safe-keys forget (drop all).",
     ];
     return { text: lines.join("\n") };
   });

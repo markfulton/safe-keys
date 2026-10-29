@@ -150,6 +150,7 @@ curl -s https://openrouter.ai/api/v1/key -H "Authorization: Bearer $OPENROUTER_A
 - `/keys` shows what is stored this session (names only), where the transcript and the log are.
 - `/keys scan` dry-runs every transcript on your machine and counts what it finds, by record type.
 - `/keys clean` overwrites those spans in place with a same-length marker, so every file stays valid and every session still resumes.
+- `/keys forget $NAME` drops one stored name, for a value that turned out not to be a secret; its text shows as itself again.
 - `/keys forget` empties the vault for the rest of the session.
 - Drop a key in `~/.claude/safe-keys-inbox.txt`, one per line, and it is stored on your next message without touching the chat at all.
 

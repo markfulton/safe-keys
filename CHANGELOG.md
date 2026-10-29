@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.5 (2026-10-29)
+
+- Text is never stored as a credential. After a label, flag or `Bearer`, a value that is punctuation alone (a markdown rule `----------------`), one plain or camelCase word (`required`, `Implementation`, `accessToken`) or a dotted code path with no digit (`r.claim_token`) is left alone. One such value, stored in an earlier session, masked ordinary markdown at section boundaries and made an unchanged file look corrupted.
+- `/keys forget $NAME` drops one stale entry from a running session and keeps the rest; `/keys forget` still empties the vault.
+- Tests: 46 unit checks, 7 engine tests.
+
 ## 1.1.4 (2026-10-29)
 
 - ffmpeg filter options are no longer stored as passwords. The flag rule read the `pass` at the end of `--highpass` as a password flag, so `--highpass f=80:poles=2` became `$HIGHPASS`. `pass` now counts only as its own word (`--pass`, `--db-pass`), and an option string of two or more `name=value` pairs joined by `:` or `,` (an ffmpeg filter chain) is never a value.
