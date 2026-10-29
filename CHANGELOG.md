@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.3 (2026-10-29)
+
+- A fal.ai key (`<key id>:<key secret>`) is stored whole as `$FAL_KEY`. It was cut at the colon into two names, and pasted bare or as `FAL_KEY=` the key id half stayed in the transcript. The shape is known, so it is caught in tool output too.
+- Any `<id>:<secret>` pair with no space in something you typed is one value when the secret half looks random. Hosts and ports, times, `key point:` prose, engine ids and Windows paths are left alone.
+- Tests: 42 unit checks, 7 engine tests.
+
 ## 1.1.2 (2026-10-29)
 
 - A base64 secret is stored whole. A Resend webhook signing secret (`whsec_` plus base64) with a `+` in it was cut at the `+`: only the tail was stored and the head stayed in the transcript. `whsec_` now takes the full base64 alphabet and its padding, and a bare base64 run in something you typed is kept as one value, `+`, `/` and trailing `=` included. File paths and `this+that` lists stay untouched.

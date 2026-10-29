@@ -59,6 +59,19 @@ test("prompt.submit: a whsec_ base64 secret with + / = reaches the bottom whole 
   for (const piece of WHSEC.slice(6).split(/[+/=]+/).filter(Boolean)) expect(arrived.text).not.toContain(piece);
 });
 
+test("prompt.submit: a fal.ai id:secret key reaches the bottom whole as one name (the 2026-10-29 colon miss)", async ($, on) => {
+  mock.clock(on);
+  let arrived: any;
+  on("prompt.submit", ($, e) => {
+    arrived = e;
+    return { text: e.text, context: e.context };
+  });
+  const FAL = UUID + ":" + ["9f86d081", "884c7d65", "9a2feaa0", "c55ad015"].join("");
+  await $.prompt.submit({ text: "here is my fal key " + FAL + " for the video editor", wait: false, origin: composer });
+  expect(arrived.text).toBe("here is my fal key $FAL_KEY for the video editor");
+  expect(arrived.text).not.toContain(UUID);
+});
+
 // session.append has no engine test here: an append the engine makes is never answered by a hook (a hook that
 // answers without next is skipped, by the engine's rule), and the kit has no store beneath it. The row rewrite is
 // a pure function, rewriteContent in lib/detect.js, covered by lib/detect.unit.mjs; the live proof is a transcript
