@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.2 (2026-10-29)
+
+- A base64 secret is stored whole. A Resend webhook signing secret (`whsec_` plus base64) with a `+` in it was cut at the `+`: only the tail was stored and the head stayed in the transcript. `whsec_` now takes the full base64 alphabet and its padding, and a bare base64 run in something you typed is kept as one value, `+`, `/` and trailing `=` included. File paths and `this+that` lists stay untouched.
+- A `whsec_` secret is named after the vendor named before it (`$RESEND_WEBHOOK_SECRET`), `$STRIPE_WEBHOOK_SECRET` when it is letters and digits only, and `STRIPE_WEBHOOK_SECRET` otherwise, so a Resend secret no longer takes over the Stripe variable.
+- An environment-variable name in a value position (`cond ? "WEBHOOK_SECRET" : "STRIPE_WEBHOOK_SECRET"` in code a tool printed) is no longer stored as a credential.
+- Tests: 38 unit checks, 6 engine tests.
+
 ## 1.1.1 (2026-10-16)
 
 - `PRIVACY.md`: what the mod reads, stores and sends (nothing leaves your computer), linked from the manifest as `privacyPolicyUrl`; the MIT license is linked as `termsOfServiceUrl`. Both show on the directory listing.

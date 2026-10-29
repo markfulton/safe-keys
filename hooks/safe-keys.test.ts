@@ -46,6 +46,19 @@ test("prompt.submit: the Bright Data shape, a uuid after 'key is'", async ($, on
   expect(arrived.text).toMatch(/\$SAFE_KEY_\d/);
 });
 
+test("prompt.submit: a whsec_ base64 secret with + / = reaches the bottom whole as one name (the 2026-10-29 miss)", async ($, on) => {
+  mock.clock(on);
+  let arrived: any;
+  on("prompt.submit", ($, e) => {
+    arrived = e;
+    return { text: e.text, context: e.context };
+  });
+  const WHSEC = ["whsec_", "Ab3dEf9hI", "j2kLmN", "+", "Qr5tUv8xY", "/z1aBcD", "e="].join("");
+  await $.prompt.submit({ text: "here is the Resend webhook signing secret " + WHSEC + " please set it", wait: false, origin: composer });
+  expect(arrived.text).toBe("here is the Resend webhook signing secret $RESEND_WEBHOOK_SECRET please set it");
+  for (const piece of WHSEC.slice(6).split(/[+/=]+/).filter(Boolean)) expect(arrived.text).not.toContain(piece);
+});
+
 // session.append has no engine test here: an append the engine makes is never answered by a hook (a hook that
 // answers without next is skipped, by the engine's rule), and the kit has no store beneath it. The row rewrite is
 // a pure function, rewriteContent in lib/detect.js, covered by lib/detect.unit.mjs; the live proof is a transcript

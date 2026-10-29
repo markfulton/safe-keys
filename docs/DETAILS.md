@@ -20,10 +20,10 @@ Real values live only in the mod's memory for the length of the session, plus th
 
 ## What it detects
 
-1. **Known key shapes**, which name themselves: Anthropic, OpenAI, OpenRouter, GitHub, GitLab, AWS, Google, Slack, Stripe, Resend, Supabase, Apify, Hugging Face, npm, DigitalOcean, Linear, Notion, Groq, Perplexity, Replicate, Fly, SendGrid, Mailgun, Twilio, Telegram, Doppler, PyPI, Vercel, JWTs, PEM private keys, connection strings that carry a password.
+1. **Known key shapes**, which name themselves: Anthropic, OpenAI, OpenRouter, GitHub, GitLab, AWS, Google, Slack, Stripe, Resend, Supabase, Apify, Hugging Face, npm, DigitalOcean, Linear, Notion, Groq, Perplexity, Replicate, Fly, SendGrid, Mailgun, Twilio, Telegram, Doppler, PyPI, Vercel, webhook signing secrets (`whsec_`, Stripe's and the base64 form Svix and Resend use), JWTs, PEM private keys, connection strings that carry a password.
 2. **A credential label, then the value**: `BRIGHTDATA_API_KEY=...`, `x-api-key: ...`, `"token": "..."`, `--password ...`, `Authorization: Bearer ...`. The label names the key.
 3. **A credential word nearby, then a token**: "the new key is 3f9a1c2e-7b4d-...". This is what catches UUID-shaped keys (Bright Data, Twilio, Notion and many more), which no entropy test can see: a UUID tops out at 4.09 bits per character. A vendor named earlier in the message names the key.
-4. **A bare high-entropy token** in something you typed.
+4. **A bare high-entropy token** in something you typed. A base64 secret is taken whole, `+`, `/` and `=` padding included, before rules 3 and 4 can split it at those characters; a run with only `/` counts as a path while any segment reads as a word.
 
 Rules 3 and 4 run only on text you typed. Tool output and the model's own text get rules 1 and 2, so the ids that fill a `git log` or a JSON response are never touched. Dates, versions, git SHAs, engine ids, path segments, URLs, code literals and placeholders are excluded by name.
 

@@ -2,7 +2,7 @@
   "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
   "name": "safe-keys",
   "displayName": "Safe Keys",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A Claude Code mod. Paste an API key into the chat and it becomes a name everywhere: the transcript on disk, the screen, the model. Your tools still use it as $NAME.",
   "author": {
     "name": "Mark Fulton",
