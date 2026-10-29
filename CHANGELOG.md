@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.4 (2026-10-29)
+
+- ffmpeg filter options are no longer stored as passwords. The flag rule read the `pass` at the end of `--highpass` as a password flag, so `--highpass f=80:poles=2` became `$HIGHPASS`. `pass` now counts only as its own word (`--pass`, `--db-pass`), and an option string of two or more `name=value` pairs joined by `:` or `,` (an ffmpeg filter chain) is never a value.
+- `--password <value>` and `--token <value>` with a space are caught in tool output too; the flag rule needed a character before the word.
+- Tests: 44 unit checks, 7 engine tests.
+
 ## 1.1.3 (2026-10-29)
 
 - A fal.ai key (`<key id>:<key secret>`) is stored whole as `$FAL_KEY`. It was cut at the colon into two names, and pasted bare or as `FAL_KEY=` the key id half stayed in the transcript. The shape is known, so it is caught in tool output too.
